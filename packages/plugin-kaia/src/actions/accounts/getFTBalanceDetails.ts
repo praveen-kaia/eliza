@@ -14,7 +14,7 @@ import { getAddressTemplate } from "../../templates/getAddress";
 import { getFTBalanceDetailsExamples } from "../../examples/getFTBalanceDetails";
 import { KaiaScanService } from "../../services";
 import { API_DEFAULTS } from "../../constants";
-import { GetAccountResponse } from "../../types";
+import { GetAccountResponse, Contract } from "../../types";
 
 export const getFTBalanceDetailsAction: Action = {
     name: "GET_FT_BALANCE_DETAILS",
@@ -82,9 +82,9 @@ export const getFTBalanceDetailsAction: Action = {
 
             if (callback) {
                 const totalCount = kaiaScanData.paging.total_count;
-                let responseText = `Your account has ${totalCount} FTs. They are as follows:\n`;
+                let responseText: string = `Your account has ${totalCount} FTs. They are as follows:\n`;
 
-                kaiaScanData.results.forEach((item: any, index: number) => {
+                kaiaScanData.results.forEach((item: Contract, index: number) => {
                     responseText += `${index + 1}. Contract address = ${item.contract.contract_address} | symbol = ${item.contract.symbol} | name = ${item.contract.name} | total supply = ${item.contract.total_supply} | balance = ${item.balance}\n`;
                 });
 

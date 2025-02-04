@@ -14,7 +14,7 @@ import { getAddressTemplate } from "../../templates/getAddress";
 import { getNFTBalanceExamples } from "../../examples/getNFTBalance";
 import { KaiaScanService } from "../../services";
 import { API_DEFAULTS } from "../../constants";
-import { GetAccountResponse } from "../../types";
+import { GetAccountResponse, Contract } from "../../types";
 
 export const getNFTBalanceAction: Action = {
     name: "GET_NFT_BALANCE",
@@ -86,7 +86,7 @@ export const getNFTBalanceAction: Action = {
                 const totalCount = kaiaScanData.paging.total_count;
                 let responseText = `Your account has ${totalCount} NFT Collections. They are as follows:\n`;
 
-                kaiaScanData.results.forEach((item: any, index: number) => {
+                kaiaScanData.results.forEach((item: Contract, index: number) => {
                     responseText += `${index + 1}. Contract address - ${item.contract.contract_address} | Token count - ${item.token_count}\n`;
                 });
 
