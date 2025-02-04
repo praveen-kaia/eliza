@@ -22,7 +22,7 @@ export class TransferAction {
 
     async transfer(params: TransferParams): Promise<Transaction> {
         console.log(
-            `Transferring: ${params.amount} tokens to (${params.toAddress} on ${params.fromChain})`
+            `Transferring: ${params.amount} tokens to (${params.toAddress} on ${String(params.fromChain)})`
         );
 
         if (!params.data) {
@@ -87,12 +87,12 @@ const buildTransferDetails = async (
         modelClass: ModelClass.SMALL,
     })) as TransferParams;
 
-    const existingChain = wp.chains[transferDetails.fromChain];
+    const existingChain = wp.chains[String(transferDetails.fromChain)];
 
     if (!existingChain) {
         throw new Error(
             "The chain " +
-                transferDetails.fromChain +
+                String(transferDetails.fromChain) +
                 " not configured yet. Add the chain or choose one from configured: " +
                 chains.toString()
         );
@@ -132,7 +132,7 @@ export const transferAction: Action = {
             const transferResp = await action.transfer(paramOptions);
             if (callback) {
                 callback({
-                    text: `Successfully transferred ${paramOptions.amount} KAIA on ${paramOptions.fromChain} to ${paramOptions.toAddress}\nTransaction Hash: ${transferResp.hash}`,
+                    text: `Successfully transferred ${paramOptions.amount} KAIA on ${String(paramOptions.fromChain)} to ${paramOptions.toAddress}\nTransaction Hash: ${transferResp.hash}`,
                     content: {
                         success: true,
                         hash: transferResp.hash,

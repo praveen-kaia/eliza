@@ -1,10 +1,10 @@
 # @elizaos/plugin-kaia
 
-Core Kaia plugin providing essential services and actions for token operations and wallet management.
+Core Kaia plugin providing essential services, actions for token operations and wallet management.
 
 ## Description
 
-The Kaia plugin provides comprehensive functionality for interacting with Kaia Mainnet and Kairos testnet, including token transfers, fetching token transfers, and faucet test tokens
+The Kaia plugin provides comprehensive functionality for interacting with Kaia Mainnet and Kairos testnet, including native token transfers, fetching FTs/NFTs and faucet test tokens on Kaia mainnet and Kairos networks.
 
 ## Features
 
@@ -26,9 +26,9 @@ npm install @elizaos/plugin-kaia
 2. Set up your environment variables:
 
 ```bash
-KAIA_EVM_PRIVATE_KEY=your_private_key
-KAIA_FAUCET_AMOUNT=test_tokens_amount
-KAIA_KAIASCAN_API_KEY=your_kaiascan_api_key
+KAIA_EVM_PRIVATE_KEY=your_private_key # Used for onchain interactions like TRANSFER
+KAIA_FAUCET_AMOUNT=fixed_test_tokens_to_be_sent # Ex: 1 - Sends 1 KAIA test tokens to user faucet request on kairos network
+KAIA_KAIASCAN_API_KEY=your_kaiascan_api_key # Used for all fetch actions
 ```
 
 3. Register the plugin in your Eliza configuration:
@@ -192,9 +192,6 @@ The following features and improvements are planned for future releases:
 
 1. **Wallet Integration**
 
-    - Multi-wallet support
-    - Hardware wallet integration
-    - Social recovery options
     - Account abstraction
     - Transaction history tracking
 
@@ -225,9 +222,7 @@ The following features and improvements are planned for future releases:
 
     - Batch transaction processing
     - Transaction simulation
-    - Gas optimization strategies
     - Custom transaction builders
-    - Advanced error handling
 
 We welcome community feedback and contributions to help prioritize these enhancements.
 
