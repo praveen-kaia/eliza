@@ -42,13 +42,10 @@ export class TransferAction {
                 value: parseEther(params.amount),
                 data: params.data as Hex,
                 kzg: {
-                    blobToKzgCommitment: function (_: ByteArray): ByteArray {
+                    blobToKzgCommitment: function (): ByteArray {
                         throw new Error("Function not implemented.");
                     },
-                    computeBlobKzgProof: function (
-                        _blob: ByteArray,
-                        _commitment: ByteArray
-                    ): ByteArray {
+                    computeBlobKzgProof: function (): ByteArray {
                         throw new Error("Function not implemented.");
                     },
                 },
