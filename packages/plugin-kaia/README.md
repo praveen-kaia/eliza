@@ -231,6 +231,7 @@ For more information about Kaia blockchain capabilities:
 - [Kaia Documentation](https://docs.kaia.io/)
 - [Kaia Developer Portal](https://kaia.io/developers)
 - [KaiaScan Explorer](https://kaiascan.io/)
+- [KaiaScan APIs](https://docs.kaiascan.io/)
 - [Kaia GitHub Repository](https://github.com/kaiachain)
 
 ## License
