@@ -1,9 +1,10 @@
 import { AccountService } from "./account";
 import { TransactionService } from "./transaction";
 import { KaiaInfoService } from "./kaiaInfo";
+import { Config } from "../types/account";
 
 export class KaiaScanService {
-    private config: any;
+    private config: Config;
     private accountService: AccountService ;
     private transactionService: TransactionService;
     private kaiaInfoService: KaiaInfoService;

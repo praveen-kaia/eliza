@@ -14,6 +14,7 @@ import { getAddressTemplate } from "../../templates/getAddress";
 import { getFTBalanceDetailsExamples } from "../../examples/getFTBalanceDetails";
 import { KaiaScanService } from "../../services";
 import { API_DEFAULTS } from "../../constants";
+import { GetAccountResponse } from "../../types";
 
 export const getFTBalanceDetailsAction: Action = {
     name: "GET_FT_BALANCE_DETAILS",
@@ -72,7 +73,7 @@ export const getFTBalanceDetailsAction: Action = {
 
         // Fetch Fungible Token Details & respond
         try {
-            const kaiaScanData = await kaiaScanService.getFTBalanceDetails(
+            const kaiaScanData: GetAccountResponse = await kaiaScanService.getFTBalanceDetails(
                 String(content?.address || "")
             );
             elizaLogger.success(

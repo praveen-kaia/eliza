@@ -45,13 +45,10 @@ export class FaucetAction {
                 value: parseEther(FAUCET_AMOUNT),
                 data: params.data as Hex,
                 kzg: {
-                    blobToKzgCommitment: function (_: ByteArray): ByteArray {
+                    blobToKzgCommitment: function (): ByteArray {
                         throw new Error("Function not implemented.");
                     },
-                    computeBlobKzgProof: function (
-                        _blob: ByteArray,
-                        _commitment: ByteArray
-                    ): ByteArray {
+                    computeBlobKzgProof: function (): ByteArray {
                         throw new Error("Function not implemented.");
                     },
                 },
@@ -111,7 +108,7 @@ export const faucetAction: Action = {
         runtime: IAgentRuntime,
         message: Memory,
         state: State,
-        _options: any,
+        _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ) => {
         if (!state) {

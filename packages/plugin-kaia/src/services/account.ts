@@ -1,4 +1,3 @@
-import { API_DEFAULTS } from "../constants";
 import type { GetAccountResponse } from "../types/account";
 import { BaseService } from "./base";
 

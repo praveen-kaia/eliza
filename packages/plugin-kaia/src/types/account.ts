@@ -45,3 +45,8 @@ export interface TransferParams {
   amount: string;
   data?: `0x${string}`;
 }
+
+export interface Config {
+  apiKey: string,
+  baseUrl: string
+}

@@ -14,6 +14,7 @@ import { getAddressTemplate } from "../../templates/getAddress";
 import { getNFTBalanceExamples } from "../../examples/getNFTBalance";
 import { KaiaScanService } from "../../services";
 import { API_DEFAULTS } from "../../constants";
+import { GetAccountResponse } from "../../types";
 
 export const getNFTBalanceAction: Action = {
     name: "GET_NFT_BALANCE",
@@ -74,7 +75,7 @@ export const getNFTBalanceAction: Action = {
 
         // Fetch NFT Balance & respond
         try {
-            const kaiaScanData = await kaiaScanService.getNFTBalance(
+            const kaiaScanData: GetAccountResponse = await kaiaScanService.getNFTBalance(
                 String(content?.address || "")
             );
             elizaLogger.success(
