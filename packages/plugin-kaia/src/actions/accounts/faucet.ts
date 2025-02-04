@@ -20,8 +20,8 @@ import type {
 import { faucetTemplate } from "../../templates/faucet";
 import { faucetExamples } from "../../examples/faucet";
 
-let fromChain: SupportedChain = "kairos";
-let FAUCET_AMOUNT = process.env.KAIA_FAUCET_AMOUNT || "50";
+const fromChain: SupportedChain = "kairos";
+const FAUCET_AMOUNT = process.env.KAIA_FAUCET_AMOUNT || "50";
 
 // Exported for tests
 export class FaucetAction {
