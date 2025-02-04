@@ -102,7 +102,7 @@ export const getTransactionsByBlockNumberAction: Action = {
                 }
                 console.log(BlockTransactions);
                 callback({
-                    text: `The transactions in a block for ${content.blocknumber} on ${content.network} is ${BlockTransactions}. \n Let's play and build some MiniDapps on LINE.`,
+                    text: `The transactions in a block for ${content.blocknumber} on ${content.network} is ${BlockTransactions}`,
                     content: kaiaScanData,
                 });
 

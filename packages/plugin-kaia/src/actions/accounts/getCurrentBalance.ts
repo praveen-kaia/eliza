@@ -82,7 +82,7 @@ export const getCurrentBalanceAction: Action = {
 
             if (callback) {
                 callback({
-                    text: `The current balance of ${content.address} is ${kaiaScanData.balance} KAIA on ${String(content.network)}, Let's play and build some MiniDapps on LINE.`,
+                    text: `The current balance of ${content.address} is ${kaiaScanData.balance} KAIA on ${String(content.network)}`,
                     content: kaiaScanData,
                 });
 

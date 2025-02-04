@@ -84,7 +84,7 @@ export const getLatestBlockAction: Action = {
 
             if (callback) {
                 callback({
-                    text: `The latest block number of ${content.network} is ${kaiaScanData.block_id}. \n Let's play and build some MiniDapps on LINE.`,
+                    text: `The latest block number of ${content.network} is ${kaiaScanData.block_id}`,
                     content: kaiaScanData,
                 });
 

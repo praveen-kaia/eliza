@@ -4,12 +4,12 @@ Core Kaia plugin providing essential services, actions for token operations and 
 
 ## Description
 
-The Kaia plugin provides comprehensive functionality for interacting with Kaia Mainnet and Kairos testnet, including native token transfers, fetching FTs/NFTs and faucet test tokens on Kaia mainnet and Kairos networks.
+The Kaia plugin provides comprehensive functionality for interacting with Kaia Mainnet and Kairos testnet, including native token transfers, fetching FTs/NFTs and faucet test tokens on Kaia networks.
 
 ## Features
 
 - Transfer KAIA tokens between wallets
-- Query wallet balances and kaia price values
+- Query wallet balances and KAIA price values
 - Manage wallet interactions with Kaia network
 - Block and Transaction Information
 
@@ -66,67 +66,67 @@ Assistant: "I'll send few KAIA testnet tokens...";
 
 ### Send KAIA tokens
 
-Transfer KAIA tokens to another address:
+Transfer KAIA tokens to another address for provided network(kaia/kairos):
 
 ```typescript
 // Example conversation
-User: "Send 1 KAIA to 0x40453b61a3da4eceaa8b6e810dad433fb57c0e61";
+User: "Send 1 KAIA to 0x40453b61a3da4eceaa8b6e810dad433fb57c0e61 on kairos";
 Assistant: "I'll send 1 KAIA token now...";
 ```
 
 ### Check Account Overview
 
-Query account overview for given address:
+Query account overview for given address for provided network(kaia/kairos):
 
 ```typescript
 // Example conversation
-User: "What's my account overview of 0x40453b61a3da4eceaa8b6e810dad433fb57c0e61?";
+User: "What's my account overview of 0x40453b61a3da4eceaa8b6e810dad433fb57c0e61 on kairos?";
 Assistant: "Your account overview details are Account Type: EOA, Balance: 10, Total Transaction Count: 12";
 ```
 
 ### Check Current Balance
 
-Query current balance and portfolio value:
+Query current balance and portfolio value for provided network(kaia/kairos):
 
 ```typescript
 // Example conversation
-User: "What's my current balance?";
+User: "What's my current balance of 0x40453b61a3da4eceaa8b6e810dad433fb57c0e61 on kairos?";
 Assistant: "Your balance contains 12 KAIA";
 ```
 
 ### Check FT Balances
 
-Query fungible token balances for given address:
+Query fungible token balances for given address on provided network(kaia/kairos):
 
 ```typescript
 // Example conversation
-User: "What's ft balance of 0x40453b61a3da4eceaa8b6e810dad433fb57c0e61?";
+User: "What's ft balance of 0x40453b61a3da4eceaa8b6e810dad433fb57c0e61 on kaia?";
 Assistant: "Your have total 5 FTs";
 ```
 
 ### Check NFT Balances
 
-Query non fungible token balances for given address:
+Query non fungible token balances for given address on provided network(kaia/kairos):
 
 ```typescript
 // Example conversation
-User: "What's nft balance of 0x40453b61a3da4eceaa8b6e810dad433fb57c0e61?";
+User: "What's nft balance of 0x40453b61a3da4eceaa8b6e810dad433fb57c0e61 on kaia?";
 Assistant: "Your have total 2 NFT Collections";
 ```
 
 ### Check Block Info
 
-Query block info for provided Block number:
+Query block info for provided Block number on provided network(kaia/kairos):
 
 ```typescript
 // Example conversation
-User: "What's block info for 100000 block number?";
+User: "What's block info for 100000 block number on kaia?";
 Assistant: "Block info for 100000 is Block Time: 2019-06-26, Block Hash: 0xc..., Total Transaction Count: 0";
 ```
 
 ### Get Latest Block
 
-Query Latest block of kaia network:
+Query Latest block on provided network(kaia/kairos):
 
 ```typescript
 // Example conversation
@@ -136,11 +136,11 @@ Assistant: "The latest block number for kaia is 176629207";
 
 ### Get Transactions by account
 
-Query transactions list by account:
+Query transactions list by account on provided network(kaia/kairos):
 
 ```typescript
 // Example conversation
-User: "What are the transactions for 0x40453b61a3da4eceaa8b6e810dad433fb57c0e61?";
+User: "What are the transactions for 0x40453b61a3da4eceaa8b6e810dad433fb57c0e61 on kairos?";
 Assistant: "The transactions for account is empty";
 ```
 
@@ -226,15 +226,11 @@ The following features and improvements are planned for future releases:
 
 We welcome community feedback and contributions to help prioritize these enhancements.
 
-## Contributing
-
-Contributions are welcome! Please see the [CONTRIBUTING.md](CONTRIBUTING.md) file for more information.
-
-For more information about Sui blockchain capabilities:
+For more information about Kaia blockchain capabilities:
 
 - [Kaia Documentation](https://docs.kaia.io/)
 - [Kaia Developer Portal](https://kaia.io/developers)
-- [Kaia Explorer](https://kaiascan.io/)
+- [KaiaScan Explorer](https://kaiascan.io/)
 - [Kaia GitHub Repository](https://github.com/kaiachain)
 
 ## License

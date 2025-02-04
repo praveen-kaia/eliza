@@ -106,7 +106,7 @@ export const getTransactionsByAccountAction: Action = {
                 }
                 console.log(AccountTransactions);
                 callback({
-                    text: `The transactions for ${content.address} account on ${content.network} is ${AccountTransactions}. \n Let's play and build some MiniDapps on LINE.`,
+                    text: `The transactions for ${content.address} account on ${content.network} is ${AccountTransactions}`,
                     content: kaiaScanData,
                 });
 

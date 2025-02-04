@@ -84,15 +84,12 @@ export const getBlockAction: Action = {
             );
 
             if (callback) {
-                let blockInfo = `
-                    Block Number: ${kaiaScanData.block_id}
-                    Block Time: ${kaiaScanData.datetime}
-                    Block Hash: ${kaiaScanData.hash}
-                    Total Transaction Count: ${kaiaScanData.total_transaction_count}
-                `;
-                console.log(blockInfo);
+                let blockInfo = `Block Number: ${kaiaScanData.block_id}\n`;
+                blockInfo += `Block Time: ${kaiaScanData.datetime}\n`;
+                blockInfo += `Block Hash: ${kaiaScanData.hash}\n`;
+                blockInfo += `Total Transaction Count: ${kaiaScanData.total_transaction_count}`;
                 callback({
-                    text: `The block info for ${content.blocknumber} on ${content.network} is ${blockInfo}, Let's play and build some MiniDapps on LINE.`,
+                    text: `The block info for ${content.blocknumber} on ${content.network} is ${blockInfo}`,
                     content: kaiaScanData,
                 });
 
