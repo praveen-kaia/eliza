@@ -3,6 +3,7 @@ import {
     Action,
     ActionExample,
     composeContext,
+    elizaLogger,
     generateObjectDeprecated,
     HandlerCallback,
     ModelClass,
@@ -21,7 +22,7 @@ export class TransferAction {
     constructor(private walletProvider: WalletProvider) {}
 
     async transfer(params: TransferParams): Promise<Transaction> {
-        console.log(
+        elizaLogger.log(
             `Transferring: ${params.amount} tokens to (${params.toAddress} on ${String(params.fromChain)})`
         );
 
@@ -100,7 +101,12 @@ const buildTransferDetails = async (
 
 export const transferAction: Action = {
     name: "TRANSFER",
+    similes: ["SEND_TOKENS", "TOKEN_TRANSFER", "MOVE_TOKENS"],
     description: "Transfer tokens between addresses on the same chain",
+    validate: async (runtime: IAgentRuntime) => {
+        const privateKey = runtime.getSetting("KAIA_EVM_PRIVATE_KEY");
+        return typeof privateKey === "string" && privateKey.startsWith("0x");
+    },
     handler: async (
         runtime: IAgentRuntime,
         message: Memory,
@@ -114,7 +120,6 @@ export const transferAction: Action = {
             state = await runtime.updateRecentMessageState(state);
         }
 
-        console.log("Transfer action handler called");
         const walletProvider = await initWalletProvider(runtime);
         const action = new TransferAction(walletProvider);
 
@@ -141,7 +146,7 @@ export const transferAction: Action = {
             }
             return true;
         } catch (error) {
-            console.error("Error during token transfer:", error);
+            elizaLogger.error("Error during token transfer:", error);
             if (callback) {
                 callback({
                     text: `Error transferring tokens: ${error.message}`,
@@ -151,10 +156,5 @@ export const transferAction: Action = {
             return false;
         }
     },
-    validate: async (runtime: IAgentRuntime) => {
-        const privateKey = runtime.getSetting("KAIA_EVM_PRIVATE_KEY");
-        return typeof privateKey === "string" && privateKey.startsWith("0x");
-    },
     examples: transferExamples as ActionExample[][],
-    similes: ["SEND_TOKENS", "TOKEN_TRANSFER", "MOVE_TOKENS"],
 };

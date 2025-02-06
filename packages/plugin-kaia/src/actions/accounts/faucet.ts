@@ -29,6 +29,9 @@ export class FaucetAction {
     constructor(private walletProvider: WalletProvider) {}
 
     async transfer(params: TransferParams): Promise<Transaction> {
+        elizaLogger.log(
+            `Transferring: ${params.amount} faucets to (${params.toAddress} on ${String(params.fromChain)})`
+        );
         if (!params.data) {
             params.data = "0x";
         }

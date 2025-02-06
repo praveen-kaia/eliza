@@ -75,7 +75,7 @@ export const getTransactionsByAccountAction: Action = {
         const config = await validateKaiaScanConfig(runtime);
         const kaiaScanService = new KaiaScanService({
             apiKey: config.KAIA_KAIASCAN_API_KEY,
-            baseUrl: API_DEFAULTS.BASE_URL[String(content.network)],
+            network: content.network
         });
 
         // Fetch Account Balance & respond
