@@ -3,6 +3,7 @@ import {
     Action,
     ActionExample,
     composeContext,
+    elizaLogger,
     generateObjectDeprecated,
     HandlerCallback,
     ModelClass,
@@ -28,10 +29,6 @@ export class FaucetAction {
     constructor(private walletProvider: WalletProvider) {}
 
     async transfer(params: TransferParams): Promise<Transaction> {
-        console.log(
-            `Transferring Some Kaia Test tokens to (${params.toAddress} on ${fromChain})`
-        );
-
         if (!params.data) {
             params.data = "0x";
         }
@@ -71,7 +68,7 @@ export class FaucetAction {
 const buildTransferDetails = async (
     state: State,
     runtime: IAgentRuntime,
-    wp: WalletProvider
+    wp: WalletProvider,
 ): Promise<TransferParams> => {
     const chains = Object.keys(wp.chains);
     state.supportedChains = chains.map((item) => `"${item}"`).join("|");
@@ -94,7 +91,7 @@ const buildTransferDetails = async (
             "The chain " +
                 fromChain +
                 " not configured yet. Add the chain or choose one from configured: " +
-                chains.toString()
+                chains.toString(),
         );
     }
 
@@ -103,13 +100,25 @@ const buildTransferDetails = async (
 
 export const faucetAction: Action = {
     name: "FAUCET",
+    similes: [
+        "SEND_FAUCET_TOKENS",
+        "GET_FAUCET_TOKENS",
+        "MOVE_FAUCET_TOKENS",
+        "SEND_TEST_TOKENS",
+        "GET_TEST_TOKENS",
+        "MOVE_TEST_TOKENS",
+    ],
     description: "Transfer some kaia test tokens to an address on Kaia testnet",
+    validate: async (runtime: IAgentRuntime) => {
+        const privateKey = runtime.getSetting("KAIA_EVM_PRIVATE_KEY");
+        return typeof privateKey === "string" && privateKey.startsWith("0x");
+    },
     handler: async (
         runtime: IAgentRuntime,
         message: Memory,
         state: State,
         _options: { [key: string]: unknown },
-        callback?: HandlerCallback
+        callback?: HandlerCallback,
     ) => {
         if (!state) {
             state = (await runtime.composeState(message)) as State;
@@ -117,7 +126,6 @@ export const faucetAction: Action = {
             state = await runtime.updateRecentMessageState(state);
         }
 
-        console.log("Faucet Transfer action handler called");
         const walletProvider = await initWalletProvider(runtime);
         const action = new FaucetAction(walletProvider);
 
@@ -125,7 +133,7 @@ export const faucetAction: Action = {
         const paramOptions = await buildTransferDetails(
             state,
             runtime,
-            walletProvider
+            walletProvider,
         );
 
         try {
@@ -144,7 +152,8 @@ export const faucetAction: Action = {
             }
             return true;
         } catch (error) {
-            console.error("Error during faucet token transfer:", error);
+            elizaLogger.error("Error during faucet token transfer:", error);
+
             if (callback) {
                 callback({
                     text: `Error transferring faucet tokens: ${error.message}`,
@@ -154,17 +163,5 @@ export const faucetAction: Action = {
             return false;
         }
     },
-    validate: async (runtime: IAgentRuntime) => {
-        const privateKey = runtime.getSetting("KAIA_EVM_PRIVATE_KEY");
-        return typeof privateKey === "string" && privateKey.startsWith("0x");
-    },
     examples: faucetExamples as ActionExample[][],
-    similes: [
-        "SEND_FAUCET_TOKENS",
-        "GET_FAUCET_TOKENS",
-        "MOVE_FAUCET_TOKENS",
-        "SEND_TEST_TOKENS",
-        "GET_TEST_TOKENS",
-        "MOVE_TEST_TOKENS",
-    ],
 };
