@@ -60,7 +60,7 @@ export const getBlockAction: Action = {
         if (!hasNetwork) {
             return;
         }
-        console.log(content);
+
         const hasBlockNumber = content?.blocknumber && !content?.error;
 
         if (!hasBlockNumber) {
@@ -71,7 +71,7 @@ export const getBlockAction: Action = {
         const config = await validateKaiaScanConfig(runtime);
         const kaiaScanService = new KaiaScanService({
             apiKey: config.KAIA_KAIASCAN_API_KEY,
-            baseUrl: API_DEFAULTS.BASE_URL[String(content.network)],
+            network: content.network
         });
 
         // Fetch Account Balance & respond
@@ -88,15 +88,16 @@ export const getBlockAction: Action = {
                 blockInfo += `Block Time: ${kaiaScanData.datetime}\n`;
                 blockInfo += `Block Hash: ${kaiaScanData.hash}\n`;
                 blockInfo += `Total Transaction Count: ${kaiaScanData.total_transaction_count}`;
+
                 callback({
-                    text: `The block info for ${content.blocknumber} on ${content.network} is ${blockInfo}`,
+                    text: `The block info for ${content.blocknumber} on ${content.network} is\n${blockInfo}`,
                     content: kaiaScanData,
                 });
 
                 return true;
             }
         } catch (error) {
-            elizaLogger.error("Error in GET_BLOCK handler:", error);
+            elizaLogger.error("Error in GET_BLOCK_INFO handler:", error);
 
             callback({
                 text: `Error fetching block info: ${error.message}`,

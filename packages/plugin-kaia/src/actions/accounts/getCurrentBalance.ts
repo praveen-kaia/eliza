@@ -13,7 +13,6 @@ import { validateKaiaScanConfig } from "../../environment";
 import { getAddressTemplate } from "../../templates/getAddress";
 import { getCurrentBalanceExamples } from "../../examples/getCurrentBalance";
 import { KaiaScanService } from "../../services";
-import { API_DEFAULTS } from "../../constants";
 
 export const getCurrentBalanceAction: Action = {
     name: "GET_CURRENT_BALANCE",
@@ -68,13 +67,13 @@ export const getCurrentBalanceAction: Action = {
         const config = await validateKaiaScanConfig(runtime);
         const kaiaScanService = new KaiaScanService({
             apiKey: config.KAIA_KAIASCAN_API_KEY,
-            baseUrl: API_DEFAULTS.BASE_URL[String(content.network)],
+            network: content.network
         });
 
         // Fetch Account Balance & respond
         try {
             const kaiaScanData = await kaiaScanService.getCurrentBalance(
-                String(content?.address || "")
+                String(content.address)
             );
             elizaLogger.success(
                 `Successfully fetched balance for ${content.address}`

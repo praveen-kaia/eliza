@@ -13,7 +13,6 @@ import { validateKaiaScanConfig } from "../../environment";
 import { getAddressTemplate } from "../../templates/getAddress";
 import { getFTBalanceDetailsExamples } from "../../examples/getFTBalanceDetails";
 import { KaiaScanService } from "../../services";
-import { API_DEFAULTS } from "../../constants";
 import { GetAccountResponse, Contract } from "../../types";
 
 export const getFTBalanceDetailsAction: Action = {
@@ -68,13 +67,13 @@ export const getFTBalanceDetailsAction: Action = {
         const config = await validateKaiaScanConfig(runtime);
         const kaiaScanService = new KaiaScanService({
             apiKey: config.KAIA_KAIASCAN_API_KEY,
-            baseUrl: API_DEFAULTS.BASE_URL[String(content.network)],
+            network: content.network
         });
 
         // Fetch Fungible Token Details & respond
         try {
             const kaiaScanData: GetAccountResponse = await kaiaScanService.getFTBalanceDetails(
-                String(content?.address || "")
+                String(content.address)
             );
             elizaLogger.success(
                 `Successfully fetched FT for ${content.address}`
@@ -85,7 +84,7 @@ export const getFTBalanceDetailsAction: Action = {
                 let responseText: string = `Your account has ${totalCount} FTs. They are as follows:\n`;
 
                 kaiaScanData.results.forEach((item: Contract, index: number) => {
-                    responseText += `${index + 1}. Contract address = ${item.contract.contract_address} | symbol = ${item.contract.symbol} | name = ${item.contract.name} | total supply = ${item.contract.total_supply} | balance = ${item.balance}\n`;
+                    responseText += `${index + 1}.\nContract address = ${item.contract.contract_address}\nsymbol = ${item.contract.symbol}\nname = ${item.contract.name}\ntotal supply = ${item.contract.total_supply}\nbalance = ${item.balance}\n\n`;
                 });
 
                 callback({

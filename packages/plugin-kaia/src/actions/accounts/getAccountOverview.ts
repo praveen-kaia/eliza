@@ -13,7 +13,6 @@ import { validateKaiaScanConfig } from "../../environment";
 import { getAddressTemplate } from "../../templates/getAddress";
 import { getAccountOverviewExamples } from "../../examples/getAccountOverview";
 import { KaiaScanService } from "../../services";
-import { API_DEFAULTS } from "../../constants";
 
 export const getAccountOverviewAction: Action = {
     name: "GET_ACCOUNT_OVERVIEW",
@@ -68,20 +67,20 @@ export const getAccountOverviewAction: Action = {
         const config = await validateKaiaScanConfig(runtime);
         const kaiaScanService = new KaiaScanService({
             apiKey: config.KAIA_KAIASCAN_API_KEY,
-            baseUrl: API_DEFAULTS.BASE_URL[String(content.network)],
+            network: content.network
         });
 
         // Fetch Account Overview & respond
         try {
             const kaiaScanData = await kaiaScanService.getAccountOverview(
-                String(content?.address || "")
+                String(content.address)
             );
             elizaLogger.success(
                 `Successfully fetched Account Overview for ${content.address}`
             );
 
             if (callback) {
-                let responseText = `Here are the details \nAccount Details:\n`;
+                let responseText = `Here are the Account Details:\n`;
                 responseText += `Address: ${kaiaScanData.address}\n`;
                 responseText += `Account Type: ${kaiaScanData.account_type}\n`;
                 responseText += `Balance: ${kaiaScanData.balance}\n`;
